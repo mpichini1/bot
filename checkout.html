@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator Payment</title>
+</head>
+<body>
+    <h1>Carbon Footprint Calculator Payment</h1>
+    <p>Please wait while we process your payment...</p>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Get the session ID from the URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        // Initialize Stripe
+        const stripe = Stripe('pk_live_51NctqGJsMk1Rb019QVhNOghq0OB6PPlT4IzKJmRNXzj1St0xKppIyV0Su7p9LP7SYn1JQ0CuhelC3A8562hNaEsB00kr754jir');
+
+        // Redirect to Stripe Checkout
+        stripe.redirectToCheckout({
+            sessionId: sessionId
+        }).then(result => {
+            if (result.error) {
+                // Handle any errors
+                console.error(result.error.message);
+            }
+        });
+    </script>
+</body>
+</html>
